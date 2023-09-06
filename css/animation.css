@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: aquamarine;
+
+  border-radius: 10px;
+  border: 1px solid gray;
+
+  margin: 0 auto;
+  margin-top: 60px;
+
+  animation-name: animation;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    background-color: red;
+  }
+  40% {
+    background-color: orange;
+  }
+  60% {
+    background-color: green;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.back {
+  font-family: sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+
+  position: fixed;
+  top: 5%;
+  left: 7%;
+
+  background-color: gray;
+  color: white;
+  padding: 15px;
+
+  border-radius: 10px;
+}

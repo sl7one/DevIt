@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+}
+
+.back {
+  font-family: sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+
+  position: fixed;
+  top: 5%;
+  left: 7%;
+
+  background-color: gray;
+  color: white;
+  padding: 15px;
+
+  border-radius: 10px;
+}
