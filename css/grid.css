@@ -1,11 +1,4 @@
-* {
-  box-sizing: border-box;
-}
 
-body {
-  margin: 0;
-  padding: 20px;
-}
 
 .grid {
   max-width: 800px;
@@ -53,18 +46,3 @@ body {
   grid-area: footer;
 }
 
-.back {
-  font-family: sans-serif;
-  font-weight: 500;
-  text-decoration: none;
-
-  position: fixed;
-  top: 5%;
-  left: 7%;
-
-  background-color: gray;
-  color: white;
-  padding: 15px;
-
-  border-radius: 10px;
-}

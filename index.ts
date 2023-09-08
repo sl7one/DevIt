@@ -1,5 +1,4 @@
 //utils
-
 const log = (result: any): void => {
   console.log(result);
 };
@@ -12,6 +11,8 @@ const deepEqual = (val1: object, val2: object): boolean => {
   }
   return false;
 };
+
+//Althought you can use _.isEqual() method from Lodash library
 
 log(deepEqual({ name: "test" }, { name: "test" }));
 log(deepEqual({ name: "test" }, { name: "test1" }));
@@ -98,9 +99,6 @@ bulkRun([
   console.log("");
 });
 
-console.log("_____________________________");
-console.log("");
-
 //4. arrayToObject
 console.log("4. arrayToObject");
 
@@ -166,6 +164,99 @@ log(
 console.log("_____________________________");
 console.log("");
 
+
+
+//7. mapObject
+console.log("7. mapObject");
+
+function mapObject(obj: {[key: string]: any}, prefix = "") {
+  const keys = Object.keys(obj);
+
+  return keys.reduce((acc:{[key: string]: any}, key:string) => {
+    const newKey = prefix ? `${prefix}/${key}` : key;
+
+    if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+      const nested = mapObject(obj[key], newKey);
+      Object.assign(acc, nested);
+    } else {
+      acc[newKey] = obj[key];
+    }
+
+    return acc;
+  }, {});
+}
+
+
+
+log(mapObject({
+  a: {
+    b: {
+      c: 12,
+      d: "Hello World",
+    },
+    e: [1, 2, 3],
+  },
+}));
+
+console.log("_____________________________");
+console.log("");
+
+// 8. combos
+console.log("8. combos");
+
+function combos(num: number) {
+  const res:number[][]  = [];
+
+  function findCombos(remaining:number, currentCombo: number[], start: number) {
+    if (remaining === 0) return res.push(currentCombo.slice());
+
+    for (let i = start; i <= num; i++) {
+      if (i <= remaining) {
+        currentCombo.push(i);
+        findCombos(remaining - i, currentCombo, i);
+        currentCombo.pop(); 
+      } else {
+        break; 
+      }
+    }
+  }
+
+  findCombos(num, [], 1); 
+  return res;
+}
+
+log(combos(3));
+log(combos(10));
+
+console.log("_____________________________");
+console.log("");
+
+//9. Add
+console.log("9. Add");
+
+const add = (x: number) => {
+  let sum = x;
+
+  const inner = (y: number) => {
+    sum += y;
+    return inner;
+  };
+
+  inner.valueOf = () => {
+    return sum;
+  };
+
+  return inner;
+};
+
+log(Number(add(1)(2)));
+log(Number(add(1)(2)(5)));
+log(Number(add(1)(2)(-3)(4)));
+log(Number(add(1)(2)(3)(4)(-5)));
+console.log("_____________________________");
+console.log("");
+
+
 //6. reliableMultiply
 console.log("6. reliableMultiply");
 
@@ -200,30 +291,5 @@ function reliableMultiply(a: number, b: number) {
 
 log(reliableMultiply(8, 8));
 
-console.log("_____________________________");
-console.log("");
-
-//9. Add
-console.log("9. Add");
-
-const add = (x: number) => {
-  let sum = x;
-
-  const inner = (y: number) => {
-    sum += y;
-    return inner;
-  };
-
-  inner.valueOf = () => {
-    return sum;
-  };
-
-  return inner;
-};
-
-log(Number(add(1)(2)));
-log(Number(add(1)(2)(5)));
-log(Number(add(1)(2)(-3)(4)));
-log(Number(add(1)(2)(3)(4)(-5)));
 console.log("_____________________________");
 console.log("");

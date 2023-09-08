@@ -69,8 +69,6 @@ bulkRun([
     console.log("_____________________________");
     console.log("");
 });
-console.log("_____________________________");
-console.log("");
 console.log("4. arrayToObject");
 const arr = [
     ["name", "developer"],
@@ -118,6 +116,74 @@ log(objectToArray({
 }));
 console.log("_____________________________");
 console.log("");
+console.log("7. mapObject");
+function mapObject(obj, prefix = "") {
+    const keys = Object.keys(obj);
+    return keys.reduce((acc, key) => {
+        const newKey = prefix ? `${prefix}/${key}` : key;
+        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+            const nested = mapObject(obj[key], newKey);
+            Object.assign(acc, nested);
+        }
+        else {
+            acc[newKey] = obj[key];
+        }
+        return acc;
+    }, {});
+}
+log(mapObject({
+    a: {
+        b: {
+            c: 12,
+            d: "Hello World",
+        },
+        e: [1, 2, 3],
+    },
+}));
+console.log("_____________________________");
+console.log("");
+console.log("8. combos");
+function combos(num) {
+    const res = [];
+    function findCombos(remaining, currentCombo, start) {
+        if (remaining === 0)
+            return res.push(currentCombo.slice());
+        for (let i = start; i <= num; i++) {
+            if (i <= remaining) {
+                currentCombo.push(i);
+                findCombos(remaining - i, currentCombo, i);
+                currentCombo.pop();
+            }
+            else {
+                break;
+            }
+        }
+    }
+    findCombos(num, [], 1);
+    return res;
+}
+log(combos(3));
+log(combos(10));
+console.log("_____________________________");
+console.log("");
+console.log("9. Add");
+const add = (x) => {
+    let sum = x;
+    const inner = (y) => {
+        sum += y;
+        return inner;
+    };
+    inner.valueOf = () => {
+        return sum;
+    };
+    return inner;
+};
+log(Number(add(1)(2)));
+log(Number(add(1)(2)(5)));
+log(Number(add(1)(2)(-3)(4)));
+log(Number(add(1)(2)(3)(4)(-5)));
+console.log("_____________________________");
+console.log("");
 console.log("6. reliableMultiply");
 function NotificationException() {
     return "notification";
@@ -151,24 +217,6 @@ function reliableMultiply(a, b) {
     }
 }
 log(reliableMultiply(8, 8));
-console.log("_____________________________");
-console.log("");
-console.log("9. Add");
-const add = (x) => {
-    let sum = x;
-    const inner = (y) => {
-        sum += y;
-        return inner;
-    };
-    inner.valueOf = () => {
-        return sum;
-    };
-    return inner;
-};
-log(Number(add(1)(2)));
-log(Number(add(1)(2)(5)));
-log(Number(add(1)(2)(-3)(4)));
-log(Number(add(1)(2)(3)(4)(-5)));
 console.log("_____________________________");
 console.log("");
 //# sourceMappingURL=index.js.map
