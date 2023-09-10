@@ -1,5 +1,4 @@
 # DevIt test
-**
 
 
 ## How to use
